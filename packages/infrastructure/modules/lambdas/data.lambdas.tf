@@ -3,4 +3,5 @@ data "aws_s3_object" "object" {
 
   bucket = var.lambdas_bucket_name
   key    = format("%s/%s.zip", each.key, each.key)
+  etag = filemd5(format(format("%s/%s.zip", each.key, each.key)))
 }
