@@ -16,7 +16,6 @@ export function request(ctx) {
 
 export function response(ctx) {
   const { error, result } = ctx;
-  console.log(result);
   if (error) {
     return util.appendError(error.message, error.type, result);
   }

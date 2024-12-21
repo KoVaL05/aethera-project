@@ -12,7 +12,7 @@ type Mutation {
 }
 
 type Query {
-  getApiKey(id: String!): API_KEY
+  getApiKey(id: String!): API_KEY @aws_cognito_user_pools
   getAllApiKeys(limit: Int, nextToken: String): [API_KEY]
     @aws_cognito_user_pools
     @live

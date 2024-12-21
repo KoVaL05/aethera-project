@@ -3,8 +3,8 @@ resource "aws_appsync_graphql_api" "api_key_public" {
   authentication_type = "AMAZON_COGNITO_USER_POOLS"
 
   user_pool_config {
-    aws_region     = data.aws_region.current.name
-    user_pool_id   = var.user_pool_id
+    aws_region   = data.aws_region.current.name
+    user_pool_id = var.user_pool_id
 
     default_action = "ALLOW"
   }
@@ -23,5 +23,17 @@ resource "aws_appsync_datasource" "api_key_table" {
 
   dynamodb_config {
     table_name = var.api_key_table_name
+  }
+}
+
+resource "aws_appsync_datasource" "create_api_key_lambda" {
+  name = "create_api_key_lambda"
+  type = "AWS_LAMBDA"
+
+  api_id           = aws_appsync_graphql_api.api_key_public.id
+  service_role_arn = aws_iam_role.appsync_lambda_role.arn
+
+  lambda_config {
+    function_arn = var.lambda_functions["create_api_key"].arn
   }
 }
