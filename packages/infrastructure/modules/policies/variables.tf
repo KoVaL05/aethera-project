@@ -32,3 +32,7 @@ variable "api_key_table_arn" {
 variable "appsync_role_id" {
   type = string
 }
+
+variable "kms_api_key_arn" {
+  type = string
+}

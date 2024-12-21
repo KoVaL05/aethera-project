@@ -16,7 +16,7 @@ data "aws_iam_policy_document" "appsync_invoke_lambda" {
     effect = "Allow"
 
     principals {
-      type = "Service"
+      type        = "Service"
       identifiers = ["appsync.amazonaws.com"]
     }
 

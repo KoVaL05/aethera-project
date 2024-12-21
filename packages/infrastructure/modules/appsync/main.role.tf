@@ -16,6 +16,6 @@ resource "aws_iam_policy" "appsync_lambda_policy" {
 
 
 resource "aws_iam_role_policy_attachment" "appsync_lambda_invoke" {
-  role = aws_iam_role.appsync_lambda_role.name
+  role       = aws_iam_role.appsync_lambda_role.name
   policy_arn = aws_iam_policy.appsync_lambda_policy.arn
 }

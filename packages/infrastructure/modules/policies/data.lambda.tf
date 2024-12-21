@@ -55,9 +55,20 @@ data "aws_iam_policy_document" "lambda_policies" {
       ]
       effect = "Allow"
       resources = [
-        format("%s/*",var.api_key_table_arn),
+        format("%s/*", var.api_key_table_arn),
         var.api_key_table_arn
       ]
+    }
+  }
+
+  dynamic "statement" {
+    for_each = each.value.permissions.kms_api_key == "encrypt" ? [each.key] : []
+
+    content {
+      sid       = "RoleForApiKeyEncryption"
+      actions   = ["kms:Encrypt"]
+      effect    = "Allow"
+      resources = [var.kms_api_key_arn]
     }
   }
 }

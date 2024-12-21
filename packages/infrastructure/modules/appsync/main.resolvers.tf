@@ -4,13 +4,13 @@ resource "aws_appsync_resolver" "unit_kind_resolvers" {
     if value.kind == "UNIT"
   }
 
-  api_id      = aws_appsync_graphql_api.api_key_public.id
+  api_id = aws_appsync_graphql_api.api_key_public.id
 
   kind        = "UNIT"
   type        = each.value.type
   data_source = each.value.data_source
   field       = each.key
-  code        = file(format("%s/%s/index.mjs",path.root,each.value.path))
+  code        = file(format("%s/%s/index.mjs", path.root, each.value.path))
 
 
   runtime {

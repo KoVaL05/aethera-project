@@ -13,11 +13,16 @@ module "action_groups" {
   subject_lambda_arn = module.lambdas.lambda_functions["subject_group_executor"].arn
 }
 
+module "kms" {
+  source = "./modules/kms"
+}
+
 module "lambdas" {
   source              = "./modules/lambdas"
   random_name         = module.random.random_name
   lambdas_bucket_arn  = module.s3.lambdas_bucket_arn
   lambdas_bucket_name = module.s3.lambda_bucket_name
+  kms_api_key_alias   = module.kms.kms_api_key_alias_name
 }
 
 module "s3" {
@@ -39,10 +44,13 @@ module "cognito" {
   lambda_functions      = module.lambdas.lambda_functions
 }
 
+
 module "appsync" {
   source             = "./modules/appsync"
   user_pool_id       = module.cognito.user_pool_id
   api_key_table_name = module.dynamodb.api_key_table_name
+  lambda_functions   = module.lambdas.lambda_functions
+  random_name        = module.random.random_name
 }
 
 module "secrets_manager" {
@@ -62,4 +70,5 @@ module "policies" {
   api_key_appsync_arn    = module.appsync.api_key_appsync_arn
   api_key_table_arn      = module.dynamodb.api_key_table_arn
   appsync_role_id        = module.appsync.appsync_role_id
+  kms_api_key_arn        = module.kms.kms_api_key_arn
 }

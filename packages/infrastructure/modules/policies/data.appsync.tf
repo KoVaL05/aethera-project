@@ -7,7 +7,7 @@ data "aws_iam_policy_document" "api_key_table_access" {
     ]
 
     resources = [
-      format("%s/*",var.api_key_table_arn),
+      format("%s/*", var.api_key_table_arn),
       var.api_key_table_arn
     ]
   }
