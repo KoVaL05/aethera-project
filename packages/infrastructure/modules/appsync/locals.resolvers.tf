@@ -12,5 +12,11 @@ locals {
       type        = "Query"
       data_source = "api_key_table"
     }
+    "createApiKey" = {
+      path        = "../resolvers/default"
+      kind        = "UNIT"
+      type        = "Mutation"
+      data_source = "create_api_key_lambda"
+    }
   }
 }

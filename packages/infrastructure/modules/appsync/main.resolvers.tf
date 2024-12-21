@@ -10,7 +10,7 @@ resource "aws_appsync_resolver" "unit_kind_resolvers" {
   type        = each.value.type
   data_source = each.value.data_source
   field       = each.key
-  code        = file(format("%s/%s/index.mjs", path.root, each.value.path))
+  code        = file(format("%s/%s/index.js", path.root, each.value.path))
 
 
   runtime {
