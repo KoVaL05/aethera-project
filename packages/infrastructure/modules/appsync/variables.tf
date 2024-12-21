@@ -8,7 +8,7 @@ variable "api_key_table_name" {
 
 variable "lambda_functions" {
   type = map(object({
-    arn : bool
+    arn : string
   }))
 }
 
