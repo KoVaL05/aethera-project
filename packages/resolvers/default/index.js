@@ -3,5 +3,5 @@ export function request(ctx) {
 }
 
 export function response(ctx) {
-  return ctx.prev.result;
+  return ctx.result;
 }
