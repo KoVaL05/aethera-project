@@ -13,7 +13,7 @@ locals {
       data_source = "api_key_table"
     }
     "createApiKey" = {
-      path        = "../resolvers/default"
+      path        = "../resolvers/createApiKey"
       kind        = "UNIT"
       type        = "Mutation"
       data_source = "create_api_key_lambda"
