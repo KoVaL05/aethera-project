@@ -10,6 +10,6 @@ resource "aws_kms_key" "api_key" {
 }
 
 resource "aws_kms_alias" "api_key_alias" {
-  name          = "alias/jwt"
+  name          = "alias/apiKey"
   target_key_id = aws_kms_key.api_key.key_id
 }

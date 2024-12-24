@@ -5,6 +5,9 @@ from aws_lambda_powertools.utilities.typing import LambdaContext
 logger = Logger()
 
 
-@logger.inject_lambda_context
 def handler(event: dict, context: LambdaContext):
-    logger.info("KMS ALIAS", os.environ["kmsApiKeyAliasName"])
+    logger.info("EVENT %s CONTEXT %s", event, context)
+    logger.info("KMS ALIAS %s", os.environ["kmsApiKeyAliasName"])
+    variables = event["variables"]
+    user_id = event["identity"]
+    logger.info("VARIABLES %s USER_ID", variables, user_id)

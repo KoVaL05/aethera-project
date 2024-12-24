@@ -6,9 +6,10 @@ export function request(ctx) {
     payload: {
       fieldName: ctx.info.fieldName,
       parentTypeName: ctx.info.parentTypeName,
-      variables: ctx.info.variables,
+      variables: { ...ctx.arguments, timestamp: util.time.nowEpochSeconds() },
       selectionSetList: ctx.info.selectionSetList,
       selectionSetGraphQL: ctx.info.selectionSetGraphQL,
+      identity: ctx.identity,
     },
   };
 }
