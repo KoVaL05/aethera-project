@@ -4,12 +4,8 @@ export function request(ctx) {
   return {
     operation: "Invoke",
     payload: {
-      fieldName: ctx.info.fieldName,
-      parentTypeName: ctx.info.parentTypeName,
-      variables: { ...ctx.arguments, timestamp: util.time.nowEpochSeconds() },
-      selectionSetList: ctx.info.selectionSetList,
-      selectionSetGraphQL: ctx.info.selectionSetGraphQL,
-      identity: ctx.identity,
+      ...ctx,
+      arguments: { ...ctx.arguments, timestamp: util.time.nowEpochSeconds() },
     },
   };
 }
