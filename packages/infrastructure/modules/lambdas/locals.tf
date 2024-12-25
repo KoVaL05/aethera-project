@@ -31,6 +31,7 @@ locals {
       },
       env = {
         kmsApiKeyAliasName = var.kms_api_key_alias
+        apiKeyTableName    = var.api_key_table_name
       }
     }
   }

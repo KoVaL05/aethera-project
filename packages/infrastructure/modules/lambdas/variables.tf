@@ -13,3 +13,7 @@ variable "lambdas_bucket_name" {
 variable "kms_api_key_alias" {
   type = string
 }
+
+variable "api_key_table_name" {
+  type = string
+}
