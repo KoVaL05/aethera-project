@@ -23,7 +23,7 @@ resource "aws_dynamodb_table" "api_key_table" {
 
   attribute {
     name = "value"
-    type = "S"
+    type = "B"
   }
 
   global_secondary_index {

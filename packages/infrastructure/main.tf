@@ -17,12 +17,17 @@ module "kms" {
   source = "./modules/kms"
 }
 
+module "dynamodb" {
+  source      = "./modules/dynamodb"
+  random_name = module.random.random_name
+}
 module "lambdas" {
   source              = "./modules/lambdas"
   random_name         = module.random.random_name
   lambdas_bucket_arn  = module.s3.lambdas_bucket_arn
   lambdas_bucket_name = module.s3.lambda_bucket_name
   kms_api_key_alias   = module.kms.kms_api_key_alias_name
+  api_key_table_name  = module.dynamodb.api_key_table_name
 }
 
 module "s3" {
@@ -30,10 +35,6 @@ module "s3" {
   random_name = module.random.random_name
 }
 
-module "dynamodb" {
-  source      = "./modules/dynamodb"
-  random_name = module.random.random_name
-}
 
 module "cognito" {
   source = "./modules/cognito"
