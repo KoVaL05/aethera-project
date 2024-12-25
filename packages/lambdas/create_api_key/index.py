@@ -28,9 +28,7 @@ def encrypt(kms_alias: str, data: str):
 
 
 def putItem(tableName: str, item: dict):
-    return dynamodb_client.put_item(
-        TableName=tableName, Item=item, ReturnValues="ALL_NEW"
-    )["Attributes"]
+    return dynamodb_client.put_item(TableName=tableName, Item=item)
 
 
 def handler(event: dict, context: LambdaContext):
@@ -53,40 +51,20 @@ def handler(event: dict, context: LambdaContext):
 
         if next((False for obj in [key_type, value, timestamp] if obj == None), True):
             encrypted = encrypt(kms_alias, value)
+            body = {
+                "id": str(uuid.uuid4()),
+                "userId": resolver_event.identity.sub,
+                "keyType": key_type,
+                "value": encrypted,
+                "createdAt": timestamp,
+            }
             result = putItem(
                 table_name,
-                python_to_dynamo(
-                    {
-                        "id": str(uuid.uuid4()),
-                        "userId": resolver_event.identity.sub,
-                        "keyType": key_type,
-                        "value": encrypted,
-                        "createdAt": timestamp,
-                    }
-                ),
+                python_to_dynamo(body),
             )
+            if result["ResponseMetadata"]["HTTPStatusCode"] == 200:
+                return body
 
-            (
-                result_id,
-                result_user_id,
-                result_key_type,
-                result_timestamp,
-                result_value,
-            ) = (
-                result["id"],
-                result["userId"],
-                result["keyType"],
-                result["createdAt"],
-                result["value"],
-            )
-
-            return {
-                "id": result_id,
-                "userId": result_user_id,
-                "keyType": result_key_type,
-                "value": result_value,
-                "createdAt": result_timestamp,
-            }
         else:
             return createError("Missing required arguments", ErrorType.BAD_REQUEST)
     except Exception as e:
