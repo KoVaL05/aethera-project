@@ -8,4 +8,4 @@ class ErrorType(Enum):
 
 
 def createError(message: str, type: ErrorType):
-    return {"error": {"message": message, "type": type}}
+    return {"error": {"message": message, "type": type.value}}
