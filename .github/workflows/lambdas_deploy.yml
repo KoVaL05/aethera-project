@@ -32,7 +32,7 @@ jobs:
         run: |
           for lambda in $(ls -d */ | sed 's|[/]||g'); do
             cd $lambda
-            pip install -e ../common -t .
+            pip install ../common -t .
             if [ -f requirements.txt ]; then
               pip install -r requirements.txt -t .
             fi

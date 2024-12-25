@@ -10,8 +10,8 @@ from aws_lambda_powertools.utilities.data_classes.appsync_resolver_event import 
 from mypy_boto3_kms.client import KMSClient
 from mypy_boto3_dynamodb.client import DynamoDBClient
 
-from ..common.error_handlers_appsync import createError, ErrorType
-from ..common.dynamodb_parser import python_to_dynamo
+from common.error_handlers_appsync import createError, ErrorType
+from common.dynamodb_parser import python_to_dynamo
 
 
 logger = Logger()
