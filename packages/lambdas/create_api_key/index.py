@@ -1,6 +1,7 @@
 import os
 import boto3
 import uuid
+import base64
 from aws_lambda_powertools import Logger
 from aws_lambda_powertools.utilities.typing import LambdaContext
 from aws_lambda_powertools.utilities.data_classes import AppSyncResolverEvent
@@ -63,6 +64,7 @@ def handler(event: dict, context: LambdaContext):
                 python_to_dynamo(body),
             )
             if result["ResponseMetadata"]["HTTPStatusCode"] == 200:
+                body.update(value=base64.b64encode(encrypted).decode("utf-8"))
                 return body
 
         else:
