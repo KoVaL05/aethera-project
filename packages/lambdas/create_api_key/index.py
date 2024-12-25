@@ -35,6 +35,7 @@ def putItem(tableName: str, item: dict):
 
 def handler(event: dict, context: LambdaContext):
     try:
+        logger.info("CONTEXT %s", context)
         resolver_event = AppSyncResolverEvent(event)
         kms_alias = os.environ["kmsApiKeyAliasName"]
         table_name = os.environ["apiKeyTableName"]
