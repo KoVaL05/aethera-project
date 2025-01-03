@@ -1,8 +1,10 @@
 # Standard library imports
 import os
+import base64
 
 # AWS SDK and related imports
 import boto3
+from boto3.dynamodb.types import Binary
 from mypy_boto3_kms.client import KMSClient
 from mypy_boto3_dynamodb.client import DynamoDBClient
 from mypy_boto3_dynamodb.type_defs import UpdateItemOutputTypeDef
@@ -67,10 +69,15 @@ def handler(event: dict, context: LambdaContext):
         if value:
             encrypted = encrypt(kms_alias, value)
             result = updateItem(table_name, id, resolver_event.identity.sub, encrypted)
-            logger.info(result)
             if result["ResponseMetadata"]["HTTPStatusCode"] == 200:
-                return dynamo_to_python(result["Attributes"])
-
+                attributes = dynamo_to_python(result["Attributes"])
+                bytes = attributes["value"]
+                attributes.update(
+                    value=base64.b64encode(
+                        bytes.value if isinstance(bytes, Binary) else bytes
+                    ).decode("utf-8")
+                )
+                return attributes
         else:
             return createError("Missing required arguments", ErrorType.BAD_REQUEST)
     except Exception as e:
