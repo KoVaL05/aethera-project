@@ -17,6 +17,12 @@ locals {
       kind        = "UNIT"
       type        = "Mutation"
       data_source = "create_api_key_lambda"
+    },
+    "updateApiKey" = {
+       path        = "../resolvers/updateApiKey"
+      kind        = "UNIT"
+      type        = "Mutation"
+      data_source = "update_api_key_lambda"
     }
   }
 }
