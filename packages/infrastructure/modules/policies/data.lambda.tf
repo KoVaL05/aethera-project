@@ -52,6 +52,7 @@ data "aws_iam_policy_document" "lambda_policies" {
       sid = "RoleForWritingApiKeys"
       actions = [
         "dynamodb:PutItem",
+        "dynamodb:UpdateItem"
       ]
       effect = "Allow"
       resources = [

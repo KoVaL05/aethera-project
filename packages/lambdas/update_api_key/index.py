@@ -1,13 +1,11 @@
 # Standard library imports
 import os
-import uuid
-import base64
 
 # AWS SDK and related imports
 import boto3
 from mypy_boto3_kms.client import KMSClient
 from mypy_boto3_dynamodb.client import DynamoDBClient
-from mypy_boto3_dynamodb.type_defs import PutItemOutputTypeDef
+from mypy_boto3_dynamodb.type_defs import UpdateItemOutputTypeDef
 
 # AWS Lambda Powertools imports
 from aws_lambda_powertools import Logger
@@ -19,7 +17,7 @@ from aws_lambda_powertools.utilities.data_classes.appsync_resolver_event import 
 
 # Local application imports
 from common.error_handlers_appsync import createError, ErrorType
-from common.dynamodb_parser import python_to_dynamo
+from common.dynamodb_parser import dynamo_to_python, python_to_dynamo
 
 
 logger = Logger()
@@ -35,8 +33,20 @@ def encrypt(kms_alias: str, data: str):
     return response["CiphertextBlob"]
 
 
-def putItem(tableName: str, item: dict) -> PutItemOutputTypeDef:
-    return dynamodb_client.put_item(TableName=tableName, Item=item)
+def updateItem(
+    tableName: str, id: str, uid: str, value: bytes
+) -> UpdateItemOutputTypeDef:
+    return dynamodb_client.update_item(
+        TableName=tableName,
+        Key=python_to_dynamo({"id": id}),
+        UpdateExpression="SET #v = :new_value",
+        ConditionExpression="#u = :user_id",
+        ExpressionAttributeNames={"#v": "value", "#u": "userId"},
+        ExpressionAttributeValues=python_to_dynamo(
+            {":new_value": value, ":user_id": uid}
+        ),
+        ReturnValues="ALL_NEW",
+    )
 
 
 def handler(event: dict, context: LambdaContext):
@@ -51,28 +61,15 @@ def handler(event: dict, context: LambdaContext):
         ):
             logger.error("IDENTITY %s", resolver_event.identity)
             return createError("Unauthorized identity", ErrorType.UNAUTHORIZED)
-        key_type, value, timestamp = (
-            resolver_event.arguments["type"],
-            resolver_event.arguments["value"],
-            resolver_event.arguments["timestamp"],
-        )
 
-        if next((False for obj in [key_type, value, timestamp] if obj == None), True):
+        id, value = resolver_event.arguments["id"], resolver_event.arguments["value"]
+
+        if value:
             encrypted = encrypt(kms_alias, value)
-            body = {
-                "id": str(uuid.uuid4()),
-                "userId": resolver_event.identity.sub,
-                "keyType": key_type,
-                "value": encrypted,
-                "createdAt": timestamp,
-            }
-            result = putItem(
-                table_name,
-                python_to_dynamo(body),
-            )
+            result = updateItem(table_name, id, resolver_event.identity.sub, encrypted)
+            logger.info(result)
             if result["ResponseMetadata"]["HTTPStatusCode"] == 200:
-                body.update(value=base64.b64encode(encrypted).decode("utf-8"))
-                return body
+                return dynamo_to_python(result["Attributes"])
 
         else:
             return createError("Missing required arguments", ErrorType.BAD_REQUEST)

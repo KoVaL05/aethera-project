@@ -6,9 +6,9 @@ type API_KEY {
 }
 
 type Mutation {
-  createApiKey(value: String!, type: String!): API_KEY @aws_cognito_user_pools
-  updateApiKey(id: String!, value: String!): API_KEY @aws_cognito_user_pools
-  deleteApiKey(id: String!): API_KEY @aws_cognito_user_pools
+  createApiKey(value: String!, type: String!): API_KEY? @aws_cognito_user_pools
+  updateApiKey(id: String!, value: String!): API_KEY? @aws_cognito_user_pools
+  deleteApiKey(id: String!): API_KEY? @aws_cognito_user_pools
 }
 
 type Query {
