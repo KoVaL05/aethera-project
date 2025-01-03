@@ -9,8 +9,9 @@ export function request(ctx) {
 
 export function response(ctx) {
   const { result, error } = ctx;
-  if (error) {
-    util.error(error.message, error.type, result);
+  const finalError = error ?? result.error;
+  if (finalError) {
+    util.error(finalError.message, finalError.type, result);
   }
   return result;
 }
