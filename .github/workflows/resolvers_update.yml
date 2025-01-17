@@ -25,5 +25,5 @@ jobs:
           accept: 201
           headers: '{ "Content-Type": "application/vnd.api+json" }'
           bearer-token: ${{ secrets.TERRAFORM_TOKEN }}
-          body: '{"data":{"type":"runs","attributes":{"message":"Triggered by GitHub Action","auto-apply":true},"relationships":{"workspace":{"data":{"type":"workspaces","id":"${{ secrets.TERRAFORM_WORKSPACE_ID }}"}}}}}'
+          body: '{"data":{"type":"runs","attributes":{"message":"Github actions - Update Resolvers","auto-apply":true},"relationships":{"workspace":{"data":{"type":"workspaces","id":"${{ secrets.TERRAFORM_WORKSPACE_ID }}"}}}}}'
           log-response: true
