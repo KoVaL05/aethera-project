@@ -47,6 +47,19 @@ locals {
         kmsApiKeyAliasName = var.kms_api_key_alias
         apiKeyTableName    = var.api_key_table_name
       }
+    },
+     "delete_api_key" = {
+      allow_agent_execution    = false
+      allow_userpool_execution = false
+
+      permissions = {
+        link_users    = false
+        api_key_table = "delete"
+        kms_api_key   = "none"
+      },
+      env = {
+        apiKeyTableName    = var.api_key_table_name
+      }
     }
   }
 }

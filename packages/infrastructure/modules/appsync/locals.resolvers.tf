@@ -23,6 +23,12 @@ locals {
       kind        = "UNIT"
       type        = "Mutation"
       data_source = "update_api_key_lambda"
+    },
+    "deleteApiKey" = {
+      path        = "../resolvers/deleteApiKey"
+      kind        = "UNIT"
+      type        = "Mutation"
+      data_source = "delete_api_key_lambda"
     }
   }
 }

@@ -49,3 +49,15 @@ resource "aws_appsync_datasource" "update_api_key_lambda" {
     function_arn = var.lambda_functions["update_api_key"].arn
   }
 }
+
+resource "aws_appsync_datasource" "delete_api_key_lambda" {
+  name = "delete_api_key_lambda"
+  type = "AWS_LAMBDA"
+
+  api_id           = aws_appsync_graphql_api.api_key_public.id
+  service_role_arn = aws_iam_role.appsync_lambda_role.arn
+
+  lambda_config {
+    function_arn = var.lambda_functions["delete_api_key"].arn
+  }
+}
