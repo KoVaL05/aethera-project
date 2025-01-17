@@ -17,6 +17,6 @@ data "aws_iam_policy_document" "appsync_invoke_lambda" {
 
     actions = ["lambda:InvokeFunction"]
 
-    resources = [var.lambda_functions["create_api_key"].arn, var.lambda_functions["update_api_key"].arn]
+    resources = [var.lambda_functions["create_api_key"].arn, var.lambda_functions["update_api_key"].arn,var.lambda_functions["delete_api_key"].arn]
   }
 }

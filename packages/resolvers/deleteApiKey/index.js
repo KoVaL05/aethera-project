@@ -10,10 +10,10 @@ export function request(ctx) {
     return util.unauthorized();
   }
 
-  const { type, value } = ctx.arguments;
-  if (isEmpty(type) || isEmpty(value)) {
-    console.error(`EMPTY TYPE OR VALUE ${type} ${value}`);
-    return util.error("EMPTY VALUE OR TYPE", "BadRequest");
+  const { id } = ctx.arguments;
+  if (isEmpty(id)) {
+    console.error(`EMPTY ID ${id}`);
+    return util.error("EMPTY ID", "BadRequest");
   }
 
   return {
