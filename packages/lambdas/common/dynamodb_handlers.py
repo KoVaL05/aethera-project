@@ -5,7 +5,7 @@ from mypy_boto3_dynamodb.type_defs import (
     DeleteItemOutputTypeDef,
 )
 from aws_lambda_powertools import Logger
-from dynamodb_parser import python_to_dynamo
+from .dynamodb_parser import python_to_dynamo
 
 logger = Logger()
 
