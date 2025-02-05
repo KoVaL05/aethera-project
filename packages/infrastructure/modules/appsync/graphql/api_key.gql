@@ -5,21 +5,26 @@ type API_KEY {
   createdAt: AWSTimestamp!
 }
 
- type Mutation {
-  createApiKey(value: String!, type: String!): API_KEY? @aws_cognito_user_pools
-  updateApiKey(id: String!, value: String!): API_KEY? @aws_cognito_user_pools
-  deleteApiKey(id: String!): API_KEY? @aws_cognito_user_pools
+type Mutation {
+  createApiKey(value: String!, type: String!): API_KEY @aws_cognito_user_pools
+  updateApiKey(id: String!, value: String!): API_KEY @aws_cognito_user_pools
+  deleteApiKey(id: String!): API_KEY @aws_cognito_user_pools
 }
 
 type Query {
   getApiKey(id: String!): API_KEY @aws_cognito_user_pools
   getAllApiKeys(limit: Int, nextToken: String): [API_KEY]
     @aws_cognito_user_pools
-    @live
 }
 
 type Subscription {
-  onApiKeyChange: API_KEY
-    @aws_subscribe(mutations: ["createApiKey", "updateApiKey", "deleteApiKey"])
+  onApiKeyCreate: API_KEY
+    @aws_subscribe(mutations: ["createApiKey"])
+    @aws_cognito_user_pools
+  onApiKeyDelete: API_KEY
+    @aws_subscribe(mutations: ["deleteApiKey"])
+    @aws_cognito_user_pools
+  onApiKeyUpdate: API_KEY
+    @aws_subscribe(mutations: ["updateApiKey"])
     @aws_cognito_user_pools
 }
