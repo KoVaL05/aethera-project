@@ -10,7 +10,7 @@ resource "aws_lambda_function" "lambda_functions" {
 
   function_name = format("%s_%s", each.key, var.random_name)
   role          = aws_iam_role.lambda_roles[each.key].arn
-  runtime       = "python3.12"
+  runtime       = "python3.13"
   timeout       = 60
   memory_size   = 128
   publish       = true
