@@ -29,6 +29,25 @@ locals {
       kind        = "UNIT"
       type        = "Mutation"
       data_source = "delete_api_key_lambda"
-    }
+    },
+     "onApiKeyCreate" = {
+      path        = "../resolvers/defaultSubscriptions"
+      kind        = "UNIT"
+      type        = "Subscription"
+      data_source = "default_data_source"
+    },
+  "onApiKeyDelete" = {
+      path        = "../resolvers/defaultSubscriptions"
+      kind        = "UNIT"
+      type        = "Subscription"
+      data_source = "default_data_source"
+    },
+  "onApiKeyUpdate" = {
+      path        = "../resolvers/defaultSubscriptions"
+      kind        = "UNIT"
+      type        = "Subscription"
+      data_source = "default_data_source"
+    },
   }
+  
 }

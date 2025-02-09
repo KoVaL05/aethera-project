@@ -10,9 +10,6 @@ from boto3.dynamodb.types import Binary
 from aws_lambda_powertools import Logger
 from aws_lambda_powertools.utilities.typing import LambdaContext
 from aws_lambda_powertools.utilities.data_classes import AppSyncResolverEvent
-from aws_lambda_powertools.utilities.data_classes.appsync_resolver_event import (
-    AppSyncIdentityCognito,
-)
 from mypy_boto3_dynamodb import DynamoDBClient
 from mypy_boto3_kms import KMSClient
 
@@ -36,7 +33,7 @@ def handler(event: dict, context: LambdaContext):
         table_name = os.environ["apiKeyTableName"]
         id, value = resolver_event.arguments["id"], resolver_event.arguments["value"]
 
-        encrypted = encrypt(kms_client, kms_alias, value)
+        encrypted = encrypt(kms_alias, value, kms_client)
         result = updateApiKey(
             dynamodb_client, table_name, id, resolver_event.identity.sub, encrypted
         )
