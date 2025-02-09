@@ -61,3 +61,10 @@ resource "aws_appsync_datasource" "delete_api_key_lambda" {
     function_arn = var.lambda_functions["delete_api_key"].arn
   }
 }
+
+resource "aws_appsync_datasource" "default_datasource" {
+  name = "default_data_source"
+  type = "NONE"
+
+  api_id           = aws_appsync_graphql_api.api_key_public.id
+}

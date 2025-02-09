@@ -12,9 +12,6 @@ from mypy_boto3_dynamodb.client import DynamoDBClient
 from aws_lambda_powertools import Logger
 from aws_lambda_powertools.utilities.typing import LambdaContext
 from aws_lambda_powertools.utilities.data_classes import AppSyncResolverEvent
-from aws_lambda_powertools.utilities.data_classes.appsync_resolver_event import (
-    AppSyncIdentityCognito,
-)
 
 # Local application imports
 from common.error_handlers_appsync import createError, ErrorType
@@ -41,7 +38,7 @@ def handler(event: dict, context: LambdaContext):
             resolver_event.arguments["timestamp"],
         )
 
-        encrypted = encrypt(kms_client, kms_alias, value)
+        encrypted = encrypt(kms_alias, value, kms_client)
         body = {
             "id": str(uuid.uuid4()),
             "userId": resolver_event.identity.sub,
