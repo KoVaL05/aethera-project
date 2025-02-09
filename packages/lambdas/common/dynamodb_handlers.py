@@ -13,7 +13,6 @@ logger = Logger()
 def putItem(
     dynamodb_client: DynamoDBClient, tableName: str, item: dict
 ) -> PutItemOutputTypeDef:
-    logger.info()
     return dynamodb_client.put_item(TableName=tableName, Item=item)
 
 
