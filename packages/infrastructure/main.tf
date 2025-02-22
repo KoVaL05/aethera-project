@@ -28,7 +28,6 @@ module "lambdas" {
   lambdas_bucket_name = module.s3.lambda_bucket_name
   kms_api_key_alias   = module.kms.kms_api_key_alias_name
   api_key_table_name  = module.dynamodb.api_key_table_name
-  api_key_stream_arn  = module.dynamodb.api_key_stream_arn
 }
 
 module "s3" {
@@ -49,10 +48,11 @@ module "cognito" {
 
 module "appsync" {
   source             = "./modules/appsync"
-  user_pool_id       = module.cognito.user_pool_id
+  user_pool_id = module.cognito.user_pool_id
   api_key_table_name = module.dynamodb.api_key_table_name
   lambda_functions   = module.lambdas.lambda_functions
   random_name        = module.random.random_name
+
 }
 
 module "secrets_manager" {
@@ -74,4 +74,13 @@ module "policies" {
   appsync_role_id        = module.appsync.appsync_role_id
   kms_api_key_arn        = module.kms.kms_api_key_arn
   api_key_stream_arn     = module.dynamodb.api_key_stream_arn
+}
+
+module "output_lambdas" {
+  source = "./modules/output_lambdas"
+  lambdas_bucket_name = module.s3.lambda_bucket_name
+  api_key_appsync_arn = module.appsync.api_key_appsync_arn
+  api_key_public_appsync_uri = module.appsync.api_key_public_appsync_uri
+  api_key_stream_arn = module.dynamodb.api_key_stream_arn
+  random_name = module.random.random_name
 }
