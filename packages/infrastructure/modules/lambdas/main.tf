@@ -28,4 +28,3 @@ resource "aws_lambda_function" "lambda_functions" {
     }
   }
 }
-
