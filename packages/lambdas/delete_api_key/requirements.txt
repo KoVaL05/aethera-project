@@ -1,3 +1,0 @@
-aws_lambda_powertools==3.4.1
-boto3==1.35.36
-mypy_boto3_dynamodb==1.35.74
