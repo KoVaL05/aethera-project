@@ -1,0 +1,23 @@
+type API_KEY {
+  id: String!
+  userId: String!
+  keyType: String!
+  createdAt: AWSTimestamp!
+}
+
+type API_KEY_ID {
+  id: String!
+  userId: String!
+}
+
+type Mutation {
+  createApiKey(value: String!, type: String!): API_KEY @aws_iam
+  updateApiKey(id: String!, value: String!): API_KEY @aws_iam
+  deleteApiKey(id: String!, keyType: String!, KeyValue): API_KEY_ID @aws_iam
+}
+
+type Query {
+  getApiKey(id: String!): API_KEY @aws_iam
+  getAllApiKeys(limit: Int, nextToken: String): [API_KEY]
+    @aws_iam
+}
