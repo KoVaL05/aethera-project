@@ -17,3 +17,7 @@ variable "kms_api_key_alias" {
 variable "api_key_table_name" {
   type = string
 }
+
+variable "api_key_stream_arn" {
+  type = string
+}

@@ -11,13 +11,24 @@ type API_KEY_ID {
 }
 
 type Mutation {
-  createApiKey(value: String!, type: String!): API_KEY @aws_iam
-  updateApiKey(id: String!, value: String!): API_KEY @aws_iam
-  deleteApiKey(id: String!, keyType: String!, KeyValue): API_KEY_ID @aws_iam
+  createApiKey(
+    userId: String!
+    value: String!
+    type: String!
+    keyValue: String!
+  ): API_KEY @aws_iam
+
+  updateApiKey(
+    id: String!
+    userId: String!
+    value: String!
+    type: String!
+  ): API_KEY @aws_iam
+  deleteApiKey(id: String!, userId: String!): API_KEY_ID @aws_iam
 }
 
 type Query {
-  getApiKey(id: String!): API_KEY @aws_iam
-  getAllApiKeys(limit: Int, nextToken: String): [API_KEY]
+  getApiKey(id: String!, userId: String!): API_KEY @aws_iam
+  getAllApiKeys(limit: Int, nextToken: String, userId: String!): [API_KEY]
     @aws_iam
 }

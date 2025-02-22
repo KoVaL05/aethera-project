@@ -19,7 +19,7 @@ locals {
       data_source = "create_api_key_lambda"
     },
     "updateApiKey" = {
-       path        = "../resolvers/updateApiKey"
+      path        = "../resolvers/updateApiKey"
       kind        = "UNIT"
       type        = "Mutation"
       data_source = "update_api_key_lambda"
@@ -30,24 +30,24 @@ locals {
       type        = "Mutation"
       data_source = "api_key_table"
     },
-     "notifyDeleteApiKey" = {
+    "notifyDeleteApiKey" = {
       path        = "../resolvers/defaultSubscriptions"
       kind        = "UNIT"
       type        = "Subscription"
       data_source = "default_data_source"
     },
-  "notifyCreateApiKey" = {
+    "notifyCreateApiKey" = {
       path        = "../resolvers/defaultSubscriptions"
       kind        = "UNIT"
       type        = "Subscription"
       data_source = "default_data_source"
     },
-  "notifyDeleteApiKey" = {
+    "notifyDeleteApiKey" = {
       path        = "../resolvers/defaultSubscriptions"
       kind        = "UNIT"
       type        = "Subscription"
       data_source = "default_data_source"
     },
   }
-  
+
 }

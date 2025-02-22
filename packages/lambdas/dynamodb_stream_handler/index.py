@@ -9,5 +9,14 @@ logger = Logger()
 
 
 @logger.inject_lambda_context
-def handler(event: dict, context: LambdaContext):
-    logger.info(event)
+def handler(event: DynamoDBStreamEvent, context: LambdaContext):
+    for record in event.records:
+        match record.event_name:
+            case "INSERT":
+                pass
+            case "MODIFY":
+                pass
+            case "REMOVE":
+                pass
+            case _:
+                pass

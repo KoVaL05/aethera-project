@@ -28,6 +28,7 @@ module "lambdas" {
   lambdas_bucket_name = module.s3.lambda_bucket_name
   kms_api_key_alias   = module.kms.kms_api_key_alias_name
   api_key_table_name  = module.dynamodb.api_key_table_name
+  api_key_stream_arn  = module.dynamodb.api_key_stream_arn
 }
 
 module "s3" {
@@ -72,5 +73,5 @@ module "policies" {
   api_key_table_arn      = module.dynamodb.api_key_table_arn
   appsync_role_id        = module.appsync.appsync_role_id
   kms_api_key_arn        = module.kms.kms_api_key_arn
-  api_key_stream_arn = module.dynamodb.api_key_stream_arn
+  api_key_stream_arn     = module.dynamodb.api_key_stream_arn
 }
