@@ -8,7 +8,10 @@ resource "aws_appsync_graphql_api" "api_key_public" {
 
     default_action = "ALLOW"
   }
-
+  
+  additional_authentication_provider {
+    authentication_type = "AWS_IAM"
+  }
   schema               = data.local_file.api_key_schema.content
   query_depth_limit    = 2
   introspection_config = "DISABLED"
