@@ -33,19 +33,19 @@ locals {
     "notifyDeleteApiKey" = {
       path        = "../resolvers/defaultSubscriptions"
       kind        = "UNIT"
-      type        = "Subscription"
+      type        = "Mutation"
       data_source = "default_data_source"
     },
     "notifyCreateApiKey" = {
       path        = "../resolvers/defaultSubscriptions"
       kind        = "UNIT"
-      type        = "Subscription"
+      type        = "Mutation"
       data_source = "default_data_source"
     },
     "notifyDeleteApiKey" = {
       path        = "../resolvers/defaultSubscriptions"
       kind        = "UNIT"
-      type        = "Subscription"
+      type        = "Mutation"
       data_source = "default_data_source"
     },
   }
