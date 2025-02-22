@@ -17,6 +17,6 @@ def handler(event: DynamoDBStreamEvent, context: LambdaContext):
             case "MODIFY":
                 pass
             case "REMOVE":
-                pass
+              pass
             case _:
-                pass
+              pass
