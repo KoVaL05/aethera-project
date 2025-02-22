@@ -1,6 +1,6 @@
 data "aws_s3_object" "dynamodb_stream_lambda_object" {
   bucket = var.lambdas_bucket_name
-  key    = "dynamodb_stream_handler-lambda/dynamodb_stream_handler-lambda.zip"
+  key    = "dynamodb_stream_handler/dynamodb_stream_handler.zip"
 }
 
 
