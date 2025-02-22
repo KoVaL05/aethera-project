@@ -29,6 +29,9 @@ variable "api_key_table_arn" {
   type = string
 }
 
+variable "api_key_stream_arn" {
+  type = string
+}
 variable "appsync_role_id" {
   type = string
 }

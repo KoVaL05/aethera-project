@@ -28,21 +28,21 @@ locals {
       path        = "../resolvers/deleteApiKey"
       kind        = "UNIT"
       type        = "Mutation"
-      data_source = "delete_api_key_lambda"
+      data_source = "api_key_table"
     },
-     "onApiKeyCreate" = {
+     "notifyDeleteApiKey" = {
       path        = "../resolvers/defaultSubscriptions"
       kind        = "UNIT"
       type        = "Subscription"
       data_source = "default_data_source"
     },
-  "onApiKeyDelete" = {
+  "notifyCreateApiKey" = {
       path        = "../resolvers/defaultSubscriptions"
       kind        = "UNIT"
       type        = "Subscription"
       data_source = "default_data_source"
     },
-  "onApiKeyUpdate" = {
+  "notifyDeleteApiKey" = {
       path        = "../resolvers/defaultSubscriptions"
       kind        = "UNIT"
       type        = "Subscription"
