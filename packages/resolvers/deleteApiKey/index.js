@@ -17,11 +17,9 @@ export function request(ctx) {
   }
 
   return {
-    operation: "Invoke",
-    payload: {
-      ...ctx,
-      arguments: { ...ctx.arguments, timestamp: util.time.nowEpochSeconds() },
-    },
+    operation: "DeleteItem",
+    key: { id },
+    condition: { id: { eq: ctx.identity.sub } },
   };
 }
 

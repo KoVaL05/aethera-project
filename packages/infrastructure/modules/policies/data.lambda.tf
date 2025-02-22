@@ -88,4 +88,26 @@ data "aws_iam_policy_document" "lambda_policies" {
       resources = [var.kms_api_key_arn]
     }
   }
+
+  dynamic "statement" {
+    for_each = each.value.permissions.api_key_stream ? [each.key] : []
+
+    content {
+      sid = "RoleForDynamoDBApiKeyStream"
+      actions = ["dynamodb:DescribeStream", "dynamodb:GetRecords", "dynamodb:GetShardIterator", "dynamodb:ListStreams"]
+      effect = "Allow"
+      resources = [var.api_key_stream_arn]
+    }
+  }
+
+  dynamic "statement" {
+    for_each = each.value.permissions.call_api_key_appsync ? [each.key] : []
+
+    content {
+      sid = "RoleForNotifyingAppSync"
+      actions = ["appsync:GraphQL"]
+      effect = "Allow"
+      resources = [var.api_key_appsync_arn]
+    }
+  }
 }

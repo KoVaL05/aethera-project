@@ -72,4 +72,5 @@ module "policies" {
   api_key_table_arn      = module.dynamodb.api_key_table_arn
   appsync_role_id        = module.appsync.appsync_role_id
   kms_api_key_arn        = module.kms.kms_api_key_arn
+  api_key_stream_arn = module.dynamodb.api_key_stream_arn
 }
