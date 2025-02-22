@@ -10,14 +10,21 @@ type API_KEY_ID {
   userId: String!
 }
 
+input API_KEY_INPUT {
+  id: String!
+  userId: String!
+  keyType: String!
+  createdAt: AWSTimestamp!
+}
+
 type Mutation {
   createApiKey(value: String!, type: String!): API_KEY @aws_cognito_user_pools
   updateApiKey(id: String!, value: String!): API_KEY @aws_cognito_user_pools
   deleteApiKey(id: String!): API_KEY_ID @aws_cognito_user_pools
 
-  notifyDeleteApiKey(key: API_KEY!): API_KEY_ID @aws_iam
-  notifyCreateApiKey(key: API_KEY!): API_KEY @aws_iam
-  notifyUpdateApiKey(key: API_KEY!): API_KEY @aws_iam
+  notifyDeleteApiKey(key: API_KEY_INPUT!): API_KEY_ID @aws_iam
+  notifyCreateApiKey(key: API_KEY_INPUT!): API_KEY @aws_iam
+  notifyUpdateApiKey(key: API_KEY_INPUT!): API_KEY @aws_iam
 }
 
 type Query {
