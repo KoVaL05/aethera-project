@@ -18,8 +18,14 @@ export function request(ctx) {
 
   return {
     operation: "DeleteItem",
-    key: { id },
-    condition: { id: { eq: ctx.identity.sub } },
+    key: { id: util.dynamodb.toDynamoDB(id) },
+    condition: {
+      expression: "userId = :userId",
+      expressionValues: util.dynamodb.toMapValues({
+        ":userId": ctx.identity.sub,
+      }),
+      equalsIgnore: ["userId"],
+    },
   };
 }
 
