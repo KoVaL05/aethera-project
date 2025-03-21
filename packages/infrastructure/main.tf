@@ -21,6 +21,10 @@ module "dynamodb" {
   source      = "./modules/dynamodb"
   random_name = module.random.random_name
 }
+
+module "vpc" {
+  source = "./modules/vpc"
+}
 module "lambdas" {
   source              = "./modules/lambdas"
   random_name         = module.random.random_name

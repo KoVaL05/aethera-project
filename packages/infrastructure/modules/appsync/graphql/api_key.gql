@@ -1,11 +1,11 @@
-type API_KEY {
+type API_KEY @aws_cognito_user_pools @aws_iam {
   id: String!
   userId: String!
   keyType: String!
   createdAt: AWSTimestamp!
 }
 
-type API_KEY_ID {
+type API_KEY_ID @aws_cognito_user_pools @aws_iam {
   id: String!
   userId: String!
 }

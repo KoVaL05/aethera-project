@@ -38,9 +38,9 @@ data "aws_iam_policy_document" "dynamodb_stream_lambda_doc" {
   statement {
 
       sid       = "RoleForNotifyingAppSync"
-      actions   = ["appsync:GraphQL"]
+      actions   = ["appsync:GraphQL","appsync:GetApi",]
       effect    = "Allow"
-      resources = [var.api_key_appsync_arn]
+      resources = [format("%s/*",var.api_key_appsync_arn)]
     
   }
 }
