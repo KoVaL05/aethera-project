@@ -9,8 +9,8 @@ resource "aws_appsync_graphql_api" "api_key_private" {
   visibility = "PRIVATE"
 }
 
-resource "aws_appsync_datasource" "api_key_table" {
-  name = "api_key_table"
+resource "aws_appsync_datasource" "api_key_table_private" {
+  name = "api_key_table_private"
   type = "AMAZON_DYNAMODB"
 
   api_id           = aws_appsync_graphql_api.api_key_public.id
@@ -44,17 +44,6 @@ resource "aws_appsync_datasource" "api_key_table" {
 #     function_arn = var.lambda_functions["update_api_key"].arn
 #   }
 # }
-resource "aws_appsync_datasource" "api_key_table_private" {
-  name = "api_key_table_private"
-  type = "AMAZON_DYNAMODB"
-
-  api_id           = aws_appsync_graphql_api.api_key_public.id
-  service_role_arn = aws_iam_role.appsync_api_key_role.arn
-
-  dynamodb_config {
-    table_name = var.api_key_table_name
-  }
-}
 
 resource "aws_appsync_datasource" "default_datasource_private" {
   name = "default_data_source_private"
