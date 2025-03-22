@@ -56,5 +56,37 @@ locals {
         apiKeyTableName    = var.api_key_table_name
       }
     },
+    "create_api_key_private" = {
+      allow_agent_execution    = false
+      allow_userpool_execution = false
+
+      permissions = {
+        link_users           = false
+        api_key_table        = "write"
+        kms_api_key          = "encrypt"
+        api_key_stream       = false
+        call_api_key_appsync = false
+      },
+      env = {
+        kmsApiKeyAliasName = var.kms_api_key_alias
+        apiKeyTableName    = var.api_key_table_name
+      }
+    },
+    "update_api_key_private" = {
+      allow_agent_execution    = false
+      allow_userpool_execution = false
+
+      permissions = {
+        link_users           = false
+        api_key_table        = "write"
+        kms_api_key          = "encrypt"
+        api_key_stream       = false
+        call_api_key_appsync = false
+      },
+      env = {
+        kmsApiKeyAliasName = var.kms_api_key_alias
+        apiKeyTableName    = var.api_key_table_name
+      }
+    },
   }
 }
