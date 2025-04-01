@@ -6,7 +6,7 @@ locals {
         call_api_key_appsync = true
       },
       env = {
-        
+
 
       }
     },

@@ -13,3 +13,5 @@ data "aws_iam_policy_document" "basic_lambda_role" {
     effect = "Allow"
   }
 }
+
+data "aws_region" "current" {}

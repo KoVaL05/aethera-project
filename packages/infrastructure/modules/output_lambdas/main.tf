@@ -24,9 +24,9 @@ resource "aws_lambda_function" "dynamodb_stream_handler_function" {
   source_code_hash = data.aws_s3_object.dynamodb_stream_lambda_object.etag
 
   environment {
-      variables = {
-        apiKeyApiUrl = var.api_key_public_appsync_uri
-      }
+    variables = {
+      apiKeyApiUrl = var.api_key_public_appsync_uri
+    }
   }
 }
 
