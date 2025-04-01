@@ -6,6 +6,8 @@ ec2: EC2Client = boto3.client('ec2')
 
 def lambda_handler(event, context):
     vpc_id = os.environ.get('VPC_ID')
+    current_region = os.environ.get('currentRegion')
+
 
     existing_endpoints = ec2.describe_vpc_endpoints(
         Filters=[
