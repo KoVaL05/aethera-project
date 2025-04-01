@@ -50,18 +50,18 @@ locals {
     },
   }
   private_resolvers = {
-    # "getApiKey" = {
-    #   path        = "../resolvers/getApiKey/private"
-    #   kind        = "UNIT"
-    #   type        = "Query"
-    #   data_source = "api_key_table_private"
-    # }
-    # "getAllApiKeys" = {
-    #   path        = "../resolvers/getAllApiKeys/private"
-    #   kind        = "UNIT"
-    #   type        = "Query"
-    #   data_source = "api_key_table_private"
-    # }
+    "getApiKey" = {
+      path        = "../resolvers/getApiKey/private"
+      kind        = "UNIT"
+      type        = "Query"
+      data_source = "api_key_table_private"
+    }
+    "getAllApiKeys" = {
+      path        = "../resolvers/getAllApiKeys/private"
+      kind        = "UNIT"
+      type        = "Query"
+      data_source = "api_key_table_private"
+    }
     "createApiKey" = {
       path        = "../resolvers/createApiKey/private"
       kind        = "UNIT"
@@ -74,11 +74,11 @@ locals {
       type        = "Mutation"
       data_source = "update_api_key_private_lambda"
     },
-    # "deleteApiKey" = {
-    #   path        = "../resolvers/deleteApiKey/private"
-    #   kind        = "UNIT"
-    #   type        = "Mutation"
-    #   data_source = "api_key_table_private"
-    # }
+    "deleteApiKey" = {
+      path        = "../resolvers/deleteApiKey/private"
+      kind        = "UNIT"
+      type        = "Mutation"
+      data_source = "api_key_table_private"
+    }
   }
 }
