@@ -27,7 +27,7 @@ resource "aws_iam_role_policy_attachment" "appsync_public_lambda_invoke" {
 
 resource "aws_iam_policy" "appsync_private_lambda_policy" {
   name   = format("appsync_private_lambda_invoke-%s", var.random_name)
-  policy = data.aws_iam_policy_document.appsync_invoke_lambda.json
+  policy = data.aws_iam_policy_document.appsync_private_invoke_lambda.json
 }
 
 
