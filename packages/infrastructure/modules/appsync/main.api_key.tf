@@ -8,7 +8,7 @@ resource "aws_appsync_graphql_api" "api_key_public" {
 
     default_action = "ALLOW"
   }
-  
+
   additional_authentication_provider {
     authentication_type = "AWS_IAM"
   }

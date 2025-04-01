@@ -8,7 +8,7 @@ module "bedrock" {
 }
 
 module "action_groups" {
-  source             = "./modules/action-groups"
+  source             = "./modules/action_groups"
   subject_agent_id   = module.bedrock.subject_agent_id
   subject_lambda_arn = module.lambdas.lambda_functions["subject_group_executor"].arn
 }
@@ -26,12 +26,13 @@ module "vpc" {
   source = "./modules/vpc"
 }
 module "lambdas" {
-  source              = "./modules/lambdas"
-  random_name         = module.random.random_name
-  lambdas_bucket_arn  = module.s3.lambdas_bucket_arn
-  lambdas_bucket_name = module.s3.lambda_bucket_name
-  kms_api_key_alias   = module.kms.kms_api_key_alias_name
-  api_key_table_name  = module.dynamodb.api_key_table_name
+  source                 = "./modules/lambdas"
+  random_name            = module.random.random_name
+  lambdas_bucket_arn     = module.s3.lambdas_bucket_arn
+  lambdas_bucket_name    = module.s3.lambda_bucket_name
+  kms_api_key_alias      = module.kms.kms_api_key_alias_name
+  api_key_table_name     = module.dynamodb.api_key_table_name
+  private_appsync_vpc_id = module.vpc.private_appsync_vpc_id
 }
 
 module "s3" {
@@ -52,7 +53,7 @@ module "cognito" {
 
 module "appsync" {
   source             = "./modules/appsync"
-  user_pool_id = module.cognito.user_pool_id
+  user_pool_id       = module.cognito.user_pool_id
   api_key_table_name = module.dynamodb.api_key_table_name
   lambda_functions   = module.lambdas.lambda_functions
   random_name        = module.random.random_name
@@ -66,6 +67,11 @@ module "secrets_manager" {
 
 }
 
+module "event_bridge" {
+  source           = "./modules/event_bridge"
+  lambda_functions = module.lambdas.lambda_functions
+  random_name      = module.random.random_name
+}
 module "policies" {
   source                 = "./modules/policies"
   random_name            = module.random.random_name
@@ -81,10 +87,11 @@ module "policies" {
 }
 
 module "output_lambdas" {
-  source = "./modules/output_lambdas"
-  lambdas_bucket_name = module.s3.lambda_bucket_name
-  api_key_appsync_arn = module.appsync.api_key_appsync_arn
+  source                     = "./modules/output_lambdas"
+  lambdas_bucket_name        = module.s3.lambda_bucket_name
+  api_key_appsync_arn        = module.appsync.api_key_appsync_arn
   api_key_public_appsync_uri = module.appsync.api_key_public_appsync_uri
-  api_key_stream_arn = module.dynamodb.api_key_stream_arn
-  random_name = module.random.random_name
+  api_key_stream_arn         = module.dynamodb.api_key_stream_arn
+  random_name                = module.random.random_name
 }
+

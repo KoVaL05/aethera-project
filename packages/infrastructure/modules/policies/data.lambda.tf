@@ -110,4 +110,30 @@ data "aws_iam_policy_document" "lambda_policies" {
       resources = [var.api_key_appsync_arn]
     }
   }
+
+  dynamic "statement" {
+    for_each = each.value.permissions.vpc_endpoint == "create" ? [each.key] : []
+
+    content {
+      sid = "RoleForCreatingVpcEndpoint"
+      actions = ["ec2:CreateVpcEndpoint",
+        "ec2:DescribeVpcEndpoints",
+      ]
+      effect    = "Allow"
+      resources = ["*"]
+    }
+  }
+
+  dynamic "statement" {
+    for_each = each.value.permissions.vpc_endpoint == "delete" ? [each.key] : []
+
+    content {
+      sid = "RoleForCreatingVpcEndpoint"
+      actions = ["ec2:DeleteVpcEndpoints",
+        "ec2:DescribeVpcEndpoints",
+      ]
+      effect    = "Allow"
+      resources = ["*"]
+    }
+  }
 }

@@ -26,7 +26,6 @@ export function request(ctx) {
       expressionValues: util.dynamodb.toMapValues({
         ":userId": effectiveUserId,
       }),
-      equalsIgnore: ["userId"],
     },
   };
 }

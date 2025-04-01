@@ -31,11 +31,11 @@ def handler(event: dict, context: LambdaContext):
         resolver_event = AppSyncResolverEvent(event)
         kms_alias = os.environ["kmsApiKeyAliasNamePrivate"]
         table_name = os.environ["apiKeyTableNamePrivate"]
-        id, value = resolver_event.arguments["id"], resolver_event.arguments["value"]
+        id, value, user_id = resolver_event.arguments["id"], resolver_event.arguments["value"], resolver_event.arguments["user_id"]
 
         encrypted = encrypt(kms_alias, value, kms_client)
         result = updateApiKey(
-            dynamodb_client, table_name, id, resolver_event.identity.sub, encrypted
+            dynamodb_client, table_name, id, user_id, encrypted
         )
 
         if result["ResponseMetadata"]["HTTPStatusCode"] == 200:

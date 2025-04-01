@@ -32,16 +32,19 @@ def handler(event: dict, context: LambdaContext):
         resolver_event = AppSyncResolverEvent(event)
         kms_alias = os.environ["kmsApiKeyAliasNamePrivate"]
         table_name = os.environ["apiKeyTableNamePrivate"]
-        key_type, value, timestamp = (
+        key_type, value, timestamp, user_id = (
             resolver_event.arguments["type"],
             resolver_event.arguments["value"],
             resolver_event.arguments["timestamp"],
+            resolver_event.arguments["user_id"]
         )
+
+        #TODO userId check if exists(userpool id required)
 
         encrypted = encrypt(kms_alias, value, kms_client)
         body = {
             "id": str(uuid.uuid4()),
-            "userId": resolver_event.identity.sub,
+            "userId":  user_id,    
             "keyType": key_type,
             "value": encrypted,
             "createdAt": timestamp,

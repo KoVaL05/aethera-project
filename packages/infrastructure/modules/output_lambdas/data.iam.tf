@@ -25,22 +25,22 @@ data "aws_iam_policy_document" "dynamodb_stream_lambda_doc" {
       "*"
     ]
   }
- 
-   statement {
 
-      sid       = "RoleForDynamoDBApiKeyStream"
-      actions   = ["dynamodb:DescribeStream", "dynamodb:GetRecords", "dynamodb:GetShardIterator", "dynamodb:ListStreams"]
-      effect    = "Allow"
-      resources = [var.api_key_stream_arn]
-    
+  statement {
+
+    sid       = "RoleForDynamoDBApiKeyStream"
+    actions   = ["dynamodb:DescribeStream", "dynamodb:GetRecords", "dynamodb:GetShardIterator", "dynamodb:ListStreams"]
+    effect    = "Allow"
+    resources = [var.api_key_stream_arn]
+
   }
 
   statement {
 
-      sid       = "RoleForNotifyingAppSync"
-      actions   = ["appsync:GraphQL","appsync:GetApi",]
-      effect    = "Allow"
-      resources = [format("%s/*",var.api_key_appsync_arn)]
-    
+    sid       = "RoleForNotifyingAppSync"
+    actions   = ["appsync:GraphQL", "appsync:GetApi", ]
+    effect    = "Allow"
+    resources = [format("%s/*", var.api_key_appsync_arn)]
+
   }
 }

@@ -2,11 +2,11 @@ resource "aws_appsync_graphql_api" "api_key_private" {
   name                = "API_Key_Private"
   authentication_type = "AWS_IAM"
 
-  
+
   schema               = data.local_file.api_key_private_schema.content
   query_depth_limit    = 2
   introspection_config = "DISABLED"
-  visibility = "PRIVATE"
+  visibility           = "PRIVATE"
 }
 
 resource "aws_appsync_datasource" "api_key_table_private" {
