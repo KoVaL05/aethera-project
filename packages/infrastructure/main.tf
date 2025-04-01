@@ -26,13 +26,15 @@ module "vpc" {
   source = "./modules/vpc"
 }
 module "lambdas" {
-  source                 = "./modules/lambdas"
-  random_name            = module.random.random_name
-  lambdas_bucket_arn     = module.s3.lambdas_bucket_arn
-  lambdas_bucket_name    = module.s3.lambda_bucket_name
-  kms_api_key_alias      = module.kms.kms_api_key_alias_name
-  api_key_table_name     = module.dynamodb.api_key_table_name
-  private_appsync_vpc_id = module.vpc.private_appsync_vpc_id
+  source                     = "./modules/lambdas"
+  random_name                = module.random.random_name
+  lambdas_bucket_arn         = module.s3.lambdas_bucket_arn
+  lambdas_bucket_name        = module.s3.lambda_bucket_name
+  kms_api_key_alias          = module.kms.kms_api_key_alias_name
+  api_key_table_name         = module.dynamodb.api_key_table_name
+  private_appsync_vpc_id     = module.vpc.private_appsync_vpc_id
+  private_appsync_sg_id      = module.vpc.private_appsync_sg_id
+  private_appsync_subnet_ids = module.vpc.private_appsync_subnet_ids
 }
 
 module "s3" {

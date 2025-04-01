@@ -1,11 +1,15 @@
 import boto3
 import os
+import json
 from mypy_boto3_ec2.client import EC2Client
 
 ec2: EC2Client = boto3.client('ec2')
 
 def lambda_handler(event, context):
     vpc_id = os.environ.get('VPC_ID')
+    sg_id = os.environ.get('SECURITY_GROUP_ID')
+    subnet_ids = json.loads(os.environ.get('SUBNET_IDS'))
+
     current_region = os.environ.get('currentRegion')
 
     existing_endpoints = ec2.describe_vpc_endpoints(
@@ -16,7 +20,7 @@ def lambda_handler(event, context):
             },
             {
                 'Name': 'service-name',
-                'Values': ['com.amazonaws.us-east-1.s3']
+                'Values': [f'com.amazonaws.{current_region}.appsync-api']
             }
         ]
     )
@@ -30,8 +34,11 @@ def lambda_handler(event, context):
 
     response = ec2.create_vpc_endpoint(
         VpcId=vpc_id,
-        ServiceName='com.amazonaws.us-east-1.s3',
-        VpcEndpointType='Interface'
+        ServiceName=f'com.amazonaws.{current_region}.appsync-api',
+        VpcEndpointType='Interface',
+        SecurityGroupIds=[sg_id],
+        SubnetIds=subnet_ids,
+        PrivateDnsEnabled=True
     )
     
     return {
