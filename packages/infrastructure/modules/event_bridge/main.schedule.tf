@@ -4,7 +4,7 @@ resource "aws_scheduler_schedule" "schedules" {
   name       = format("%s-schedule-%s", var.random_name, each.key)
   group_name = each.value.group_name
 
-  schedule_expression = each.value.schedule_expression
+  schedule_expression = each.value.schedule
 
   flexible_time_window {
     mode = "OFF"

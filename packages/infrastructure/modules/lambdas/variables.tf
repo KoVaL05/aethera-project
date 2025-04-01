@@ -21,3 +21,11 @@ variable "api_key_table_name" {
 variable "private_appsync_vpc_id" {
   type = string
 }
+
+variable "private_appsync_sg_id" {
+  type = string
+}
+
+variable "private_appsync_subnet_ids" {
+  type = string
+}
