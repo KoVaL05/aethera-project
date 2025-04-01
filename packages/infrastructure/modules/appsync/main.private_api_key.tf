@@ -13,7 +13,7 @@ resource "aws_appsync_datasource" "api_key_table_private" {
   name = "api_key_table_private"
   type = "AMAZON_DYNAMODB"
 
-  api_id           = aws_appsync_graphql_api.api_key_public.id
+  api_id           = aws_appsync_graphql_api.api_key_private.id
   service_role_arn = aws_iam_role.appsync_api_key_role.arn
 
   dynamodb_config {
