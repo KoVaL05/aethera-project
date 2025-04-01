@@ -21,7 +21,7 @@ data "aws_iam_policy_document" "appsync_public_invoke_lambda" {
   }
 }
 
-data "aws_iam_policy_document" "appsync_public_invoke_lambda" {
+data "aws_iam_policy_document" "appsync_private_invoke_lambda" {
   statement {
     effect = "Allow"
 
