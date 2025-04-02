@@ -5,7 +5,7 @@ from mypy_boto3_ec2.client import EC2Client
 
 ec2: EC2Client = boto3.client('ec2')
 
-def lambda_handler(event, context):
+def handler(event, context):
     vpc_id = os.environ.get('VPC_ID')
     sg_id = os.environ.get('SECURITY_GROUP_ID')
     subnet_ids = json.loads(os.environ.get('SUBNET_IDS'))
