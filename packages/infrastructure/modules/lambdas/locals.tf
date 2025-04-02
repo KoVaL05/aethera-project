@@ -107,7 +107,10 @@ locals {
         call_api_key_appsync = false
       },
       env = {
-        VPC_ID = var.private_appsync_vpc_id
+        VPC_ID            = var.private_appsync_vpc_id
+        SECURITY_GROUP_ID = var.private_appsync_sg_id
+        SUBNET_IDS        = var.private_appsync_subnet_ids
+        currentRegion     = data.aws_region.current.name
       }
     },
     "delete_vpc_endpoint" = {
@@ -123,10 +126,8 @@ locals {
         call_api_key_appsync = false
       },
       env = {
-        VPC_ID            = var.private_appsync_vpc_id
-        SECURITY_GROUP_ID = var.private_appsync_sg_id
-        SUBNET_IDS        = var.private_appsync_subnet_ids
-        currentRegion     = data.aws_region.current.name
+        VPC_ID = var.private_appsync_vpc_id
+
       }
     },
   }
