@@ -29,7 +29,3 @@ variable "private_appsync_sg_id" {
 variable "private_appsync_subnet_ids" {
   type = string
 }
-
-variable "user_pool_id" {
-  type = string
-}

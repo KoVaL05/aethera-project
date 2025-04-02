@@ -35,8 +35,6 @@ module "lambdas" {
   private_appsync_vpc_id     = module.vpc.private_appsync_vpc_id
   private_appsync_sg_id      = module.vpc.private_appsync_sg_id
   private_appsync_subnet_ids = module.vpc.private_appsync_subnet_ids
-  user_pool_id               = module.cognito.user_pool_id
-
 }
 
 module "s3" {

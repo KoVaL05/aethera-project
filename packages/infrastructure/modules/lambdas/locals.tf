@@ -75,7 +75,6 @@ locals {
       env = {
         kmsApiKeyAliasName = var.kms_api_key_alias
         apiKeyTableName    = var.api_key_table_name
-        userPoolId         = var.user_pool_id
       }
     },
     "update_api_key_private" = {
