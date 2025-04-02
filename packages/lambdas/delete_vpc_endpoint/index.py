@@ -6,7 +6,7 @@ from mypy_boto3_ec2.client import EC2Client
 logger = Logger()
 ec2: EC2Client = boto3.client('ec2')
 
-def lambda_handler(event, context):
+def handler(event, context):
     vpc_id = os.environ.get('VPC_ID')
     
     response = ec2.describe_vpc_endpoints(Filters=[{'Name': 'vpc-id', 'Values': [vpc_id]}])
