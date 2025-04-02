@@ -38,8 +38,6 @@ module "lambdas" {
   api_key_public_appsync_uri = module.appsync.api_key_public_appsync_uri
   api_key_stream_arn         = module.dynamodb.api_key_stream_arn
   api_key_appsync_arn        = module.appsync.api_key_appsync_arn
-  user_pool_id               = module.cognito.user_pool_id
-
 }
 
 module "s3" {
