@@ -41,3 +41,7 @@ variable "api_key_public_appsync_uri" {
 variable "api_key_appsync_arn" {
   type = string
 }
+
+variable "user_pool_id" {
+  type = string
+}
