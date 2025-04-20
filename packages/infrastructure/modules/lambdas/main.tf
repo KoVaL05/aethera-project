@@ -47,9 +47,9 @@ resource "aws_lambda_function" "lambda_output_functions" {
 
   handler   = "index.handler"
   s3_bucket = var.lambdas_bucket_name
-  s3_key    = data.aws_s3_object.object[each.key].key
+  s3_key    = data.aws_s3_object.lambdas_output_object[each.key].key
 
-  source_code_hash = data.aws_s3_object.object[each.key].etag
+  source_code_hash = data.aws_s3_object.lambdas_output_object[each.key].etag
 
   dynamic "environment" {
     for_each = length(keys(each.value.env)) > 0 ? [each.value.env] : []
