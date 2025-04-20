@@ -35,6 +35,9 @@ module "lambdas" {
   private_appsync_vpc_id     = module.vpc.private_appsync_vpc_id
   private_appsync_sg_id      = module.vpc.private_appsync_sg_id
   private_appsync_subnet_ids = module.vpc.private_appsync_subnet_ids
+  api_key_public_appsync_uri = module.appsync.api_key_public_appsync_uri
+  api_key_stream_arn         = module.dynamodb.api_key_stream_arn
+  api_key_appsync_arn        = module.appsync.api_key_appsync_arn
 }
 
 module "s3" {
@@ -88,12 +91,12 @@ module "policies" {
   api_key_stream_arn     = module.dynamodb.api_key_stream_arn
 }
 
-module "output_lambdas" {
-  source                     = "./modules/output_lambdas"
-  lambdas_bucket_name        = module.s3.lambda_bucket_name
-  api_key_appsync_arn        = module.appsync.api_key_appsync_arn
-  api_key_public_appsync_uri = module.appsync.api_key_public_appsync_uri
-  api_key_stream_arn         = module.dynamodb.api_key_stream_arn
-  random_name                = module.random.random_name
-}
+# module "output_lambdas" {
+#   source                     = "./modules/output_lambdas"
+#   lambdas_bucket_name        = module.s3.lambda_bucket_name
+#   api_key_appsync_arn        = module.appsync.api_key_appsync_arn
+#   api_key_public_appsync_uri = module.appsync.api_key_public_appsync_uri
+#   api_key_stream_arn         = module.dynamodb.api_key_stream_arn
+#   random_name                = module.random.random_name
+# }
 

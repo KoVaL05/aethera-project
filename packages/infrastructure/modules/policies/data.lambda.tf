@@ -105,9 +105,9 @@ data "aws_iam_policy_document" "lambda_policies" {
 
     content {
       sid       = "RoleForNotifyingAppSync"
-      actions   = ["appsync:GraphQL"]
+      actions   = ["appsync:GraphQL", "appsync:GetApi", ]
       effect    = "Allow"
-      resources = [var.api_key_appsync_arn]
+      resources = [format("%s/*", var.api_key_appsync_arn)]
     }
   }
 
