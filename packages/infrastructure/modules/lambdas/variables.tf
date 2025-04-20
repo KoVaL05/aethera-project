@@ -29,3 +29,15 @@ variable "private_appsync_sg_id" {
 variable "private_appsync_subnet_ids" {
   type = string
 }
+
+variable "api_key_stream_arn" {
+  type = string
+}
+
+variable "api_key_public_appsync_uri" {
+  type = string
+}
+
+variable "api_key_appsync_arn" {
+  type = string
+}
