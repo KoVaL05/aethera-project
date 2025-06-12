@@ -1,5 +1,5 @@
 data "aws_iam_policy_document" "lambda_policies" {
-  for_each = var.lambda_functions
+  for_each = toset(concat(var.lambda_functions,var.lambda_output_functions))
 
   statement {
     sid = "RoleForLambdaLogs"

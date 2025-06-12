@@ -14,6 +14,15 @@ variable "lambda_functions" {
   }))
 }
 
+variable "lambda_output_functions" {
+  type = map(object({
+    arn : string
+    iam_role_name : string
+    permissions : map(any)
+  }))
+}
+
+
 variable "user_pool_arn" {
   type = string
 }
