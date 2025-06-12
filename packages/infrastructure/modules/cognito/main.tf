@@ -80,7 +80,7 @@ resource "aws_cognito_user_pool_client" "default_client" {
 
   explicit_auth_flows = ["ALLOW_REFRESH_TOKEN_AUTH", "ALLOW_CUSTOM_AUTH", "ALLOW_USER_SRP_AUTH", "ALLOW_USER_PASSWORD_AUTH"]
 
-  supported_identity_providers = ["COGNITO", "Google"]
+  supported_identity_providers = ["COGNITO", aws_cognito_identity_provider.google_provider.provider_name]
   access_token_validity        = 10
   id_token_validity            = 10
   refresh_token_validity       = 5
