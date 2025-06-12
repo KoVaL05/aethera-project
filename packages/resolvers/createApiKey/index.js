@@ -12,7 +12,7 @@ export function request(ctx) {
 
   const { type, value } = ctx.arguments;
   if (isEmpty(type) || isEmpty(value)) {
-    console.error(`EMPTY TYPE OR VALUE ${type} ${value}`);
+    console.error(`EMPTY TYPE OR VALUE TEST ${type} ${value}`);
     return util.error("EMPTY VALUE OR TYPE", "BadRequest");
   }
 

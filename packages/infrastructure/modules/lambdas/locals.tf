@@ -131,4 +131,22 @@ locals {
       }
     },
   }
+
+  lambda_outputs_functions_data = {
+    "dynamodb_stream_handler" = {
+      allow_agent_execution    = false
+      allow_userpool_execution = false
+      permissions = {
+        vpc_endpoint         = "none"
+        link_users           = false
+        api_key_table        = "none"
+        kms_api_key          = "none"
+        api_key_stream       = true
+        call_api_key_appsync = true
+      },
+      env = {
+        apiKeyApiUrl = var.api_key_public_appsync_uri
+      }
+    }
+  }
 }

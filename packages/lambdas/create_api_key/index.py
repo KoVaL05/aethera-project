@@ -28,7 +28,7 @@ dynamodb_client: DynamoDBClient = boto3.client("dynamodb")
 def handler(event: dict, context: LambdaContext):
     try:
 
-        logger.info("CONTEXT %s", context)
+        logger.info("CONTEXT THIS %s", context)
         resolver_event = AppSyncResolverEvent(event)
         kms_alias = os.environ["kmsApiKeyAliasName"]
         table_name = os.environ["apiKeyTableName"]
