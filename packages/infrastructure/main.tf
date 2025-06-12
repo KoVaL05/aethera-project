@@ -79,17 +79,18 @@ module "event_bridge" {
   random_name      = module.random.random_name
 }
 module "policies" {
-  source                 = "./modules/policies"
-  random_name            = module.random.random_name
-  lambdas_bucket_arn     = module.s3.lambdas_bucket_arn
-  lambda_functions       = module.lambdas.lambda_functions
-  user_pool_arn          = module.cognito.user_pool_arn
-  secret_manager_sns_arn = module.secrets_manager.secret_manager_sns_arn
-  api_key_appsync_arn    = module.appsync.api_key_appsync_arn
-  api_key_table_arn      = module.dynamodb.api_key_table_arn
-  appsync_role_id        = module.appsync.appsync_role_id
-  kms_api_key_arn        = module.kms.kms_api_key_arn
-  api_key_stream_arn     = module.dynamodb.api_key_stream_arn
+  source                  = "./modules/policies"
+  random_name             = module.random.random_name
+  lambdas_bucket_arn      = module.s3.lambdas_bucket_arn
+  lambda_functions        = module.lambdas.lambda_functions
+  lambda_output_functions = module.lambdas.lambda_output_functions
+  user_pool_arn           = module.cognito.user_pool_arn
+  secret_manager_sns_arn  = module.secrets_manager.secret_manager_sns_arn
+  api_key_appsync_arn     = module.appsync.api_key_appsync_arn
+  api_key_table_arn       = module.dynamodb.api_key_table_arn
+  appsync_role_id         = module.appsync.appsync_role_id
+  kms_api_key_arn         = module.kms.kms_api_key_arn
+  api_key_stream_arn      = module.dynamodb.api_key_stream_arn
 }
 
 # module "output_lambdas" {
