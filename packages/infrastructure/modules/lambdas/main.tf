@@ -10,14 +10,6 @@ resource "aws_iam_role" "lambda_output_roles" {
   name               = format("%s-lambda-role-%s", each.key, var.random_name)
   assume_role_policy = data.aws_iam_policy_document.basic_lambda_role.json
 }
-
-resource "aws_iam_role" "lambda_output_roles" {
-  for_each = local.lambda_outputs_functions_data
-
-  name               = format("%s-lambda-role-%s", each.key, var.random_name)
-  assume_role_policy = data.aws_iam_policy_document.basic_lambda_role.json
-}
-
 resource "aws_lambda_function" "lambda_functions" {
   for_each = local.lambda_functions_data
 
